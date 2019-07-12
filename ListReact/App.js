@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import List from './components/List';
+import InputListText from './components/InputListText'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <List/>
+      <InputListText/>
     </View>
   );
 }
