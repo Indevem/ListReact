@@ -10,24 +10,24 @@ export default class InputListText extends React.Component {
       'Получить нагоняй от Алещенко',
       'Найти Широкова',
       'Поступить в МИСоС',
-    ];
+    ]; // Временный список элементов, позже будет передаваться в props
     this.state={
-      selectedValue: '',
-      valueType: true,
-      suggestions: this.items.sort(),
-      showList: false,
+      selectedValue: '', // Текущее выбранное значение
+      valueType: true, // Тип значения: введено вручную или выбрано пользователем
+      suggestions: this.items.sort(), // Список выводимых элементов (отдельным массивом в state для обеспечения возможности поиска)
+      showList: false, // Рендерятся ли элементы списка
     }
   }
   
-  suggestionSelected (value) {
+  suggestionSelected (value) { // Если выбрано какое-либо значение из заданного списка
     this.setState(() => ({
       selectedValue: value,
       valueType: false,
       showList: false,
-    }))
+    })) // Изменяется текущее выбранное значение, его тип (если изначально был другим), список скрывается от внимательного взора пользователя
   }
 
-  renderItem = ({item}) => {
+  renderItem = ({item}) => { // Функция рендеринга отдельного элемента из списка (На данный момент работает с кнопками)
     return(
       <Button
         title={item}
@@ -36,16 +36,16 @@ export default class InputListText extends React.Component {
     )
   }
   
-  onTextChanged = (value) =>{
+  onTextChanged = (value) =>{ // Функция, вызываемая при изменении текста в поле ввода
     this.setState({ selectedValue: value }); 
-    const reg = new RegExp(`${value}`, 'i');
-    const suggest = this.items.sort().filter(v => reg.test(v));
+    const reg = new RegExp(`${value}`, 'i'); // ПОНЯТИЯ НЕ ИМЕЮ, ЧТО ЭТО, ОНО ОТКУДА-ТО СКОПИРОВАННОЕ
+    const suggest = this.items.sort().filter(v => reg.test(v)); // Новый отсортированный список
     this.setState(() => ({ suggestions: suggest }));
-    this.setState(() => ({ valueType: true }));
+    this.setState(() => ({ valueType: true })); // Тип значения -> введено пользователем
   }
 
-  renderSuggestions(){
-    if (this.state.showList == true){
+  renderSuggestions(){ // Функция рендеринга элементов списка
+    if (this.state.showList == true){ // Случай раскрытого списка: рендерятся все элементы массива suggestions и кнопка "Скрыть варианты"
       const {suggestions} = this.state;
       return (
         <View>
@@ -64,7 +64,7 @@ export default class InputListText extends React.Component {
         </View>
       )
     }
-    else{
+    else{ // Случай скрытого списка: рендерится кнопка для его раскрытия
       return (
         <Button
           title="Показать варианты"
@@ -74,7 +74,7 @@ export default class InputListText extends React.Component {
     }
   }
 
-  renderType(){
+  renderType(){ // Вывод на экран типа данных: введённых пользователем или выбранных из списка (временная функция для проверки корректности работы)
     if(this.state.valueType == true){
       return(<Text>(Введён пользователем)</Text>);
     }
@@ -96,8 +96,8 @@ export default class InputListText extends React.Component {
         {this.renderSuggestions()}
         <Text>Выбранный вариант:</Text>
         <Text>{this.state.selectedValue}</Text>
-        {this.renderType()}
+        {this.renderType()} //
       </View>
     )
-  }
+  } // Разбор составляющих этой функции можно взять как задание! (Если серьёзно, тут просто функция рендера всего и сразу)
 }
