@@ -3,8 +3,10 @@ import 'react-native';
 import InputListText from '../components/InputListText';
 import renderer from 'react-test-renderer';
 
-test('App snapshot',()=>{
-  const snap = renderer.create(
-    <App/>
-  ).toJSON();
+it('Select any suggestion test',()=>{
+  let ListData = renderer.create(<InputListText
+      Items = {[]}
+    />).getInstance();
+  ListData.suggestionSelected('AAA');
+  expect(ListData.state.selectedValue).toEqual('AAA');
 })

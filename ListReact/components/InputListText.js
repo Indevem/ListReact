@@ -23,11 +23,20 @@ export default class InputListText extends React.Component {
     * Изменяет выбранное значение, устанавливает его тип на "выбрано из списка", скрывает сам список.
     */
   suggestionSelected (value) {
+    /**
+    * Изменяется текущее выбранное значение, его тип (если изначально был другим).
+    * Список скрывается от внимательного взора пользователя.
+      */ 
     this.setState(() => ({
       selectedValue: value,
       valueType: false,
       showList: false,
-    })) // Изменяется текущее выбранное значение, его тип (если изначально был другим), список скрывается от внимательного взора пользователя
+    }))
+    /** Создаётся новый отсортированный список */
+    const reg = new RegExp(`${value}`, 'i');
+    const suggest = this.items.sort().filter(v => reg.test(v));
+    /** Изменяется выводимый на экран список. */
+    this.setState(() => ({ suggestions: suggest }));
   }
 
   /** Рендерит отдельный элемент из списка согласно передаваемым в компонент параметрам. */
@@ -42,11 +51,15 @@ export default class InputListText extends React.Component {
   
   /** Вызывается при ручном изменении текста в поле ввода */
   onTextChanged = (value) =>{
-    this.setState({ selectedValue: value });  /** Устанавливается текущее выбранное значение на новое. */
+    /** Устанавливается текущее выбранное значение на новое. */
+    this.setState({ selectedValue: value });
+    /** Создаётся новый отсортированный список */
     const reg = new RegExp(`${value}`, 'i');
-    const suggest = this.items.sort().filter(v => reg.test(v)); /** Создаётся новый отсортированный список */
-    this.setState(() => ({ suggestions: suggest })); /** Изменяется выводимый на экран список. */
-    this.setState(() => ({ valueType: true })); /** Устанавливает тип значения на "введено пользователем" */
+    const suggest = this.items.sort().filter(v => reg.test(v));
+    /** Изменяется выводимый на экран список. */
+    this.setState(() => ({ suggestions: suggest }));
+    /** Устанавливает тип значения на "введено пользователем" */
+    this.setState(() => ({ valueType: true }));
   }
 
   /** Рендерит элементы списка */
@@ -98,7 +111,6 @@ export default class InputListText extends React.Component {
   render(){
     return (
       <View>
-        <Text style={{ marginTop: 60, marginBottom: 20 }} > Помогите Даше найти верное решение</Text>
         <TextInput
           value = {this.state.selectedValue}
           mode="outlined"
@@ -106,6 +118,9 @@ export default class InputListText extends React.Component {
           onChangeText={ (text) => { this.onTextChanged(text) }}
         />
         {this.renderSuggestions()}
+        <Button
+          title="Очистить поле ввода"
+          onPress={() => this.onTextChanged('')}/>
         <Text>Выбранный вариант:</Text>
         <Text>{this.state.selectedValue}</Text>
         {this.renderType()}
