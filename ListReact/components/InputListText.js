@@ -6,6 +6,9 @@ export default class InputListText extends React.Component {
   constructor(props){
     super(props);
     this.items = props.Items;
+    if(this.items == undefined){
+      this.items = [];
+    }
     this.state={
       /** Текущее выбранное значение. */
       selectedValue: '',
