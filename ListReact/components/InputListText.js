@@ -1,13 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity } from 'react-native';
 
 export default class InputListText extends React.Component {
   /** Конструктор принимает список элементов и параметры их рендеринга. */
   constructor(props){
     super(props);
+    /** Элементы передаваемого списка. */
     this.items = props.Items;
+    /** Парметры рендера элементов списка. */
+    this.renderItems = props.Render;
+    /** Если список не передаётся, вместо него создаётся пустой. */
     if(this.items == undefined){
       this.items = [];
+      this.renderItems = (<Text></Text>);
     }
     this.state={
       /** Текущее выбранное значение. */
@@ -43,12 +48,14 @@ export default class InputListText extends React.Component {
   }
 
   /** Рендерит отдельный элемент из списка согласно передаваемым в компонент параметрам. */
-  renderItem = ({item}) => { // (На данный момент работает только с кнопками)
+  renderItem = ({item}) => {
+    /** TouchableOpacity делает возможным вызов функции выбора элемента из списка при нажатии на элемент. */
     return(
-      <Button
-        title={item}
-        onPress={() => this.suggestionSelected(item)}
-      />
+      <TouchableOpacity onPress={()=> {this.suggestionSelected(item)}}>
+        <View>
+          {this.props.Render(item)}
+        </View>
+      </TouchableOpacity>
     )
   }
   
@@ -67,12 +74,13 @@ export default class InputListText extends React.Component {
 
   /** Рендерит элементы списка */
   renderSuggestions(){
-    /** Случай раскрытого списка (showList = true):
-    * Рендерится каждый элемент списка.
-    * Рендерится кнопка "Скрыть варианты", позволяющая пользователю убрать список.
-    */
+    /** Случай раскрытого списка (showList = true): */
     if (this.state.showList == true){ 
       const {suggestions} = this.state;
+      /** В качестве списка использован FlatList.
+        * Рендер каждого элемента происходит в функции this.renderItem()
+        * Рендерится кнопка "Скрыть варианты", позволяющая пользователю убрать список.
+        */
       return (
         <View>
           <View
@@ -90,8 +98,9 @@ export default class InputListText extends React.Component {
         </View>
       )
     }
-    /** Случай скрытого списка: рендерится кнопка "Показать варианты", позволяющая пользователю его раскрыть. */
+    /** Случай скрытого списка. */
     else{
+      /** Рендерится кнопка "Показать варианты", позволяющая пользователю его раскрыть. */
       return (
         <Button
           title="Показать варианты"
@@ -101,12 +110,37 @@ export default class InputListText extends React.Component {
     }
   }
 
-  renderType(){ // Вывод на экран типа данных: введённых пользователем или выбранных из списка (временная функция для проверки корректности работы)
-    if(this.state.valueType == true){
-      return(<Text>(Введён пользователем)</Text>);
+  /** Возвращает введённый пользователем текст.
+   *  В случае выбора одного из предложенных вариантов возвращает пустую строку.
+   */
+  textInputValue(){
+    if (this.state.valueType == true) {
+      return this.state.selectedValue;
     }
-    else{
-      return(<Text>(Выбран из предложенных)</Text>);
+    else {
+      return '';
+    }
+  }
+
+  /** Выводит на экран выбранный элемент и его тип. */
+  renderSelected(){
+    /** Если текст введён пользователем, рендерит сам текст. */
+    if (this.state.valueType == true) {
+      return (
+        <View>
+          <Text>{this.state.selectedValue}</Text>
+          <Text>(Введён пользователем)</Text>
+        </View>
+      );
+    }
+    /** Если пользователь выбрал предложенный вариант, рендерит его. */
+    else {
+      return(
+        <View>
+          {this.renderItems(this.state.selectedValue)}
+          <Text>(Выбран из списка)</Text>
+        </View>
+      )
     }
   }
 
@@ -115,18 +149,17 @@ export default class InputListText extends React.Component {
     return (
       <View>
         <TextInput
-          value = {this.state.selectedValue}
+          value = {this.textInputValue()}
           mode="outlined"
           style={{ height: 40, borderWidth: 1, padding: 5 }}
           onChangeText={ (text) => { this.onTextChanged(text) }}
         />
         {this.renderSuggestions()}
         <Button
-          title="Очистить поле ввода"
+          title="Сброс"
           onPress={() => this.onTextChanged('')}/>
         <Text>Выбранный вариант:</Text>
-        <Text>{this.state.selectedValue}</Text>
-        {this.renderType()}
+        {this.renderSelected()}
       </View>
     )
   }

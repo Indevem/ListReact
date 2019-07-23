@@ -12,6 +12,7 @@ export default function App() {
           'Найти Широкова',
           'Поступить в МИСоС',
         ]}
+        Render = {item => (<Text>{item}</Text>)}
       />
     </View>
   );

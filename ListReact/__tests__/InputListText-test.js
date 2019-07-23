@@ -1,5 +1,5 @@
 import React from 'react';
-import 'react-native';
+import { Text } from 'react-native';
 import InputListText from '../components/InputListText';
 import renderer from 'react-test-renderer';
 
@@ -11,6 +11,7 @@ test('Корректный рендер скрытого списка', () => {
 test('Корректный рендер раскрытого списка', () => {
   let ListData = renderer.create(<InputListText
     Items = {['A', 'AB', 'CA', 'D']}
+    Render = {item => (<Text>{item}</Text>)}
     />);
   ListData.getInstance().setState(() => ({ showList: true }));
   ListData.getInstance().onTextChanged("A");
@@ -21,6 +22,7 @@ test('Корректный рендер раскрытого списка', () =
 it('Фукция выбраного значения из предложенных', () => {
   let ListData = renderer.create(<InputListText
     Items = {[]}
+    Render = {item => (<Text>{item}</Text>)}
     />).getInstance();
   ListData.suggestionSelected("AAA");
   expect(ListData.state.selectedValue).toBe("AAA");
@@ -30,6 +32,7 @@ it('Фукция выбраного значения из предложенны
 it('Функция ввода текста пользователем', () => {
   let ListData = renderer.create(<InputListText
     Items = {[]}
+    Render = {item => (<Text>{item}</Text>)}
     />).getInstance();
   ListData.onTextChanged("AAA");
   expect(ListData.state.selectedValue).toBe("AAA");

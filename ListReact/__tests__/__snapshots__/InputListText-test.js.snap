@@ -15,7 +15,7 @@ exports[`Корректный рендер раскрытого списка 1`]
       }
     }
     underlineColorAndroid="transparent"
-    value=""
+    value="A"
   />
   <View>
     <View
@@ -29,7 +29,8 @@ exports[`Корректный рендер раскрытого списка 1`]
         data={
           Array [
             "A",
-            "B",
+            "AB",
+            "CA",
           ]
         }
         disableVirtualization={false}
@@ -61,8 +62,6 @@ exports[`Корректный рендер раскрытого списка 1`]
             style={null}
           >
             <View
-              accessibilityRole="button"
-              accessibilityStates={Array []}
               accessible={true}
               isTVSelectable={true}
               onResponderGrant={[Function]}
@@ -77,25 +76,8 @@ exports[`Корректный рендер раскрытого списка 1`]
                 }
               }
             >
-              <View
-                style={
-                  Array [
-                    Object {},
-                  ]
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#007AFF",
-                        "fontSize": 18,
-                        "padding": 8,
-                        "textAlign": "center",
-                      },
-                    ]
-                  }
-                >
+              <View>
+                <Text>
                   A
                 </Text>
               </View>
@@ -106,8 +88,6 @@ exports[`Корректный рендер раскрытого списка 1`]
             style={null}
           >
             <View
-              accessibilityRole="button"
-              accessibilityStates={Array []}
               accessible={true}
               isTVSelectable={true}
               onResponderGrant={[Function]}
@@ -122,26 +102,35 @@ exports[`Корректный рендер раскрытого списка 1`]
                 }
               }
             >
-              <View
-                style={
-                  Array [
-                    Object {},
-                  ]
+              <View>
+                <Text>
+                  AB
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
                 }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#007AFF",
-                        "fontSize": 18,
-                        "padding": 8,
-                        "textAlign": "center",
-                      },
-                    ]
-                  }
-                >
-                  B
+              }
+            >
+              <View>
+                <Text>
+                  CA
                 </Text>
               </View>
             </View>
@@ -233,12 +222,14 @@ exports[`Корректный рендер раскрытого списка 1`]
   <Text>
     Выбранный вариант:
   </Text>
-  <Text>
-    
-  </Text>
-  <Text>
-    (Введён пользователем)
-  </Text>
+  <View>
+    <Text>
+      A
+    </Text>
+    <Text>
+      (Введён пользователем)
+    </Text>
+  </View>
 </View>
 `;
 
@@ -342,11 +333,13 @@ exports[`Корректный рендер скрытого списка 1`] = `
   <Text>
     Выбранный вариант:
   </Text>
-  <Text>
-    
-  </Text>
-  <Text>
-    (Введён пользователем)
-  </Text>
+  <View>
+    <Text>
+      
+    </Text>
+    <Text>
+      (Введён пользователем)
+    </Text>
+  </View>
 </View>
 `;
