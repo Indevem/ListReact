@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 
 export default class InputListText extends React.Component {
+  /** Конструктор принимает список элементов и параметры их рендеринга. */
   constructor(props){
     super(props);
     this.items = [
@@ -12,14 +13,22 @@ export default class InputListText extends React.Component {
       'Поступить в МИСоС',
     ]; // Временный список элементов, позже будет передаваться в props
     this.state={
-      selectedValue: '', // Текущее выбранное значение
-      valueType: true, // Тип значения: введено вручную или выбрано пользователем
-      suggestions: this.items.sort(), // Список выводимых элементов (отдельным массивом в state для обеспечения возможности поиска)
-      showList: false, // Рендерятся ли элементы списка
+      /** Текущее выбранное значение. */
+      selectedValue: '',
+      /** Тип выбранного значения: введено пользователем (true) или выбрано из списка (false). */
+      valueType: true,
+      /** Список выводимых на экран элементов. */
+      suggestions: this.items.sort(),
+      /** Рендерится ли список. */
+      showList: false,
     }
   }
   
-  suggestionSelected (value) { // Если выбрано какое-либо значение из заданного списка
+  /** 
+    * Вызывается при выборе какого-либо значения из списка.
+    * Изменяет выбранное значение, устанавливает его тип на "выбрано из списка", скрывает сам список.
+    */
+  suggestionSelected (value) {
     this.setState(() => ({
       selectedValue: value,
       valueType: false,
@@ -27,7 +36,8 @@ export default class InputListText extends React.Component {
     })) // Изменяется текущее выбранное значение, его тип (если изначально был другим), список скрывается от внимательного взора пользователя
   }
 
-  renderItem = ({item}) => { // Функция рендеринга отдельного элемента из списка (На данный момент работает с кнопками)
+  /** Рендерит отдельный элемент из списка согласно передаваемым в компонент параметрам. */
+  renderItem = ({item}) => { // (На данный момент работает только с кнопками)
     return(
       <Button
         title={item}
@@ -36,16 +46,22 @@ export default class InputListText extends React.Component {
     )
   }
   
-  onTextChanged = (value) =>{ // Функция, вызываемая при изменении текста в поле ввода
-    this.setState({ selectedValue: value }); 
-    const reg = new RegExp(`${value}`, 'i'); // ПОНЯТИЯ НЕ ИМЕЮ, ЧТО ЭТО, ОНО ОТКУДА-ТО СКОПИРОВАННОЕ
-    const suggest = this.items.sort().filter(v => reg.test(v)); // Новый отсортированный список
-    this.setState(() => ({ suggestions: suggest }));
-    this.setState(() => ({ valueType: true })); // Тип значения -> введено пользователем
+  /** Вызывается при ручном изменении текста в поле ввода */
+  onTextChanged = (value) =>{
+    this.setState({ selectedValue: value });  /** Устанавливается текущее выбранное значение на новое. */
+    const reg = new RegExp(`${value}`, 'i');
+    const suggest = this.items.sort().filter(v => reg.test(v)); /** Создаётся новый отсортированный список */
+    this.setState(() => ({ suggestions: suggest })); /** Изменяется выводимый на экран список. */
+    this.setState(() => ({ valueType: true })); /** Устанавливает тип значения на "введено пользователем" */
   }
 
-  renderSuggestions(){ // Функция рендеринга элементов списка
-    if (this.state.showList == true){ // Случай раскрытого списка: рендерятся все элементы массива suggestions и кнопка "Скрыть варианты"
+  /** Рендерит элементы списка */
+  renderSuggestions(){
+    /** Случай раскрытого списка (showList = true):
+    * Рендерится каждый элемент списка.
+    * Рендерится кнопка "Скрыть варианты", позволяющая пользователю убрать список.
+    */
+    if (this.state.showList == true){ 
       const {suggestions} = this.state;
       return (
         <View>
@@ -64,7 +80,8 @@ export default class InputListText extends React.Component {
         </View>
       )
     }
-    else{ // Случай скрытого списка: рендерится кнопка для его раскрытия
+    /** Случай скрытого списка: рендерится кнопка "Показать варианты", позволяющая пользователю его раскрыть. */
+    else{
       return (
         <Button
           title="Показать варианты"
@@ -83,6 +100,7 @@ export default class InputListText extends React.Component {
     }
   }
 
+  /** Рендерит компонент: поле для ввода текста и доступные для выбора варианты. */
   render(){
     return (
       <View>
@@ -96,8 +114,8 @@ export default class InputListText extends React.Component {
         {this.renderSuggestions()}
         <Text>Выбранный вариант:</Text>
         <Text>{this.state.selectedValue}</Text>
-        {this.renderType()} //
+        {this.renderType()}
       </View>
     )
-  } // Разбор составляющих этой функции можно взять как задание! (Если серьёзно, тут просто функция рендера всего и сразу)
+  }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import List from './components/List';
 import InputListText from './components/InputListText'
 
 export default function App() {
