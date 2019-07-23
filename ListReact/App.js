@@ -5,7 +5,14 @@ import InputListText from './components/InputListText'
 export default function App() {
   return (
     <View style={styles.container}>
-      <InputListText/>
+      <InputListText
+        Items = {['Сдать зачёт Бабичеву',
+          'Встретить Куренкова',
+          'Получить нагоняй от Алещенко',
+          'Найти Широкова',
+          'Поступить в МИСоС',
+      ]}
+    />
     </View>
   );
 }

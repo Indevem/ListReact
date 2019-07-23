@@ -5,13 +5,7 @@ export default class InputListText extends React.Component {
   /** Конструктор принимает список элементов и параметры их рендеринга. */
   constructor(props){
     super(props);
-    this.items = [
-      'Сдать зачёт Бабичеву',
-      'Встретить Куренкова',
-      'Получить нагоняй от Алещенко',
-      'Найти Широкова',
-      'Поступить в МИСоС',
-    ]; // Временный список элементов, позже будет передаваться в props
+    this.items = props.Items;
     this.state={
       /** Текущее выбранное значение. */
       selectedValue: '',
