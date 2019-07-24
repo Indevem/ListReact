@@ -10,17 +10,14 @@ export default class InputListText extends React.Component {
     /** Парметры рендера элементов списка. */
     this.renderItems = props.Render;
     /** Если список не передаётся, вместо него создаётся пустой. */
-    if(this.items == undefined){
-      this.items = [];
-      this.renderItems = (<Text></Text>);
+    if(this.items == undefined || this.renderItems == undefined){
+      // ВЫБРОСИТЬ ИСКЛЮЧЕНИЕ
     }
     this.state={
       /** Текущее выбранное значение. */
       selectedValue: '',
       /** Тип выбранного значения: введено пользователем (true) или выбрано из списка (false). */
       valueType: true,
-      /** Список выводимых на экран элементов. */
-      suggestions: this.items.sort(),
       /** Рендерится ли список. */
       showList: false,
     }
@@ -40,11 +37,6 @@ export default class InputListText extends React.Component {
       valueType: false,
       showList: false,
     }))
-    /** Создаётся новый отсортированный список */
-    const reg = new RegExp(`${value}`, 'i');
-    const suggest = this.items.sort().filter(v => reg.test(v));
-    /** Изменяется выводимый на экран список. */
-    this.setState(() => ({ suggestions: suggest }));
   }
 
   /** Рендерит отдельный элемент из списка согласно передаваемым в компонент параметрам. */
@@ -63,11 +55,6 @@ export default class InputListText extends React.Component {
   onTextChanged = (value) =>{
     /** Устанавливается текущее выбранное значение на новое. */
     this.setState({ selectedValue: value });
-    /** Создаётся новый отсортированный список */
-    const reg = new RegExp(`${value}`, 'i');
-    const suggest = this.items.sort().filter(v => reg.test(v));
-    /** Изменяется выводимый на экран список. */
-    this.setState(() => ({ suggestions: suggest }));
     /** Устанавливает тип значения на "введено пользователем" */
     this.setState(() => ({ valueType: true }));
   }
@@ -76,7 +63,6 @@ export default class InputListText extends React.Component {
   renderSuggestions(){
     /** Случай раскрытого списка (showList = true): */
     if (this.state.showList == true){ 
-      const {suggestions} = this.state;
       /** В качестве списка использован FlatList.
         * Рендер каждого элемента происходит в функции this.renderItem()
         * Рендерится кнопка "Скрыть варианты", позволяющая пользователю убрать список.
@@ -86,7 +72,7 @@ export default class InputListText extends React.Component {
           <View
             style = {{height: 200}}>
             <FlatList
-              data={suggestions}
+              data={this.items}
               renderItem={this.renderItem}
               keyExtractor={(item,index)=>index.toString()}
             />
