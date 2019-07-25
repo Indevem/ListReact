@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Корректный рендер раскрытого списка 1`] = `
+exports[`Корректный рендер раскрытого списка (несколько элементов) 1`] = `
 <View>
   <TextInput
     allowFontScaling={true}
@@ -31,6 +31,7 @@ exports[`Корректный рендер раскрытого списка 1`]
             "A",
             "AB",
             "CA",
+            "D",
           ]
         }
         disableVirtualization={false}
@@ -135,6 +136,32 @@ exports[`Корректный рендер раскрытого списка 1`]
               </View>
             </View>
           </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View>
+                <Text>
+                  D
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
       </RCTScrollView>
     </View>
@@ -215,7 +242,7 @@ exports[`Корректный рендер раскрытого списка 1`]
           ]
         }
       >
-        Очистить поле ввода
+        Сброс
       </Text>
     </View>
   </View>
@@ -233,7 +260,155 @@ exports[`Корректный рендер раскрытого списка 1`]
 </View>
 `;
 
-exports[`Корректный рендер скрытого списка 1`] = `
+exports[`Корректный рендер раскрытого списка (элементы отсутствуют) 1`] = `
+<View>
+  <TextInput
+    allowFontScaling={true}
+    mode="outlined"
+    onChangeText={[Function]}
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderWidth": 1,
+        "height": 40,
+        "padding": 5,
+      }
+    }
+    underlineColorAndroid="transparent"
+    value="A"
+  />
+  <View>
+    <View
+      style={
+        Object {
+          "height": 200,
+        }
+      }
+    >
+      <RCTScrollView
+        data={Array []}
+        disableVirtualization={false}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={false}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        numColumns={1}
+        onContentSizeChange={[Function]}
+        onEndReachedThreshold={2}
+        onLayout={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        stickyHeaderIndices={Array []}
+        updateCellsBatchingPeriod={50}
+        viewabilityConfigCallbackPairs={Array []}
+        windowSize={21}
+      >
+        <View />
+      </RCTScrollView>
+    </View>
+    <View
+      accessibilityRole="button"
+      accessibilityStates={Array []}
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {},
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#007AFF",
+                "fontSize": 18,
+                "padding": 8,
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          Скрыть варианты
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    accessibilityRole="button"
+    accessibilityStates={Array []}
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#007AFF",
+              "fontSize": 18,
+              "padding": 8,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Сброс
+      </Text>
+    </View>
+  </View>
+  <Text>
+    Выбранный вариант:
+  </Text>
+  <View>
+    <Text>
+      A
+    </Text>
+    <Text>
+      (Введён пользователем)
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Корректный рендер скрытого списка (несколько элементов) 1`] = `
 <View>
   <TextInput
     allowFontScaling={true}
@@ -326,7 +501,118 @@ exports[`Корректный рендер скрытого списка 1`] = `
           ]
         }
       >
-        Очистить поле ввода
+        Сброс
+      </Text>
+    </View>
+  </View>
+  <Text>
+    Выбранный вариант:
+  </Text>
+  <View>
+    <Text>
+      
+    </Text>
+    <Text>
+      (Введён пользователем)
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Корректный рендер скрытого списка (элементы отсутствуют) 1`] = `
+<View>
+  <TextInput
+    allowFontScaling={true}
+    mode="outlined"
+    onChangeText={[Function]}
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderWidth": 1,
+        "height": 40,
+        "padding": 5,
+      }
+    }
+    underlineColorAndroid="transparent"
+    value=""
+  />
+  <View
+    accessibilityRole="button"
+    accessibilityStates={Array []}
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#007AFF",
+              "fontSize": 18,
+              "padding": 8,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Показать варианты
+      </Text>
+    </View>
+  </View>
+  <View
+    accessibilityRole="button"
+    accessibilityStates={Array []}
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#007AFF",
+              "fontSize": 18,
+              "padding": 8,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Сброс
       </Text>
     </View>
   </View>
