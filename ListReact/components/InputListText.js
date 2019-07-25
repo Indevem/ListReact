@@ -9,9 +9,9 @@ export default class InputListText extends React.Component {
     this.items = props.Items;
     /** Парметры рендера элементов списка. */
     this.renderItems = props.Render;
-    /** Если список не передаётся, вместо него создаётся пустой. */
+    /** Если список или параметры рендеринга не передаются, выбрасывается исключение. */
     if(this.items == undefined || this.renderItems == undefined){
-      // ВЫБРОСИТЬ ИСКЛЮЧЕНИЕ
+      throw new Error('You should set the list of items and render options for them');
     }
     this.state={
       /** Текущее выбранное значение. */

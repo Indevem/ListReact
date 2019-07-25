@@ -3,14 +3,16 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import InputListText from './components/InputListText'
 
 export default function App() {
+  /** Демонстрирует работу компонента InputListTers на на примере списка из четырёх
+   * текстовых элементов с их рендерингом в виде строк.
+   */
   return (
     <View style={styles.container}>
       <InputListText
-        Items = {['Сдать зачёт Бабичеву',
-          'Встретить Куренкова',
-          'Получить нагоняй от Алещенко',
-          'Найти Широкова',
-          'Поступить в МИСоС',
+        Items = {['В ярость друг меня привел -',
+          'Гнев излил я, гнев прошел.',
+          'Враг обиду мне нанес -',
+          'Я молчал, но гнев мой рос.'
         ]}
         Render = {item => (<Text>{item}</Text>)}
       />
